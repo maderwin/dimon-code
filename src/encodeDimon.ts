@@ -1,12 +1,24 @@
+import { DimonError } from './DimonError';
 import { DimonLocale, getLocaleSettings } from './locale';
 
 export const encodeDimon = (
-    inputNumber: number,
+    inputValue: number,
     locale = DimonLocale.ru
 ): string => {
     const { alphabet, prefix, postfix } = getLocaleSettings(locale);
 
-    const body = Math.floor(inputNumber)
+    if (
+        isFinite(inputValue) === false ||
+        isNaN(inputValue) ||
+        inputValue < 0 ||
+        inputValue > Number.MAX_SAFE_INTEGER
+    ) {
+        throw new DimonError('Input value out of supported range', {
+            inputValue,
+        });
+    }
+
+    const body = Math.floor(inputValue)
         .toString(alphabet.length)
         .replace(/./g, (char, index, wholeString) => {
             const charIndex =

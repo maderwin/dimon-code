@@ -1,9 +1,9 @@
 export class DimonError extends Error {
     name = 'DimonError';
-    data: unknown;
+    extra: unknown;
 
-    constructor(message: string, data?: unknown) {
+    constructor(message: string, extra?: unknown) {
         super(message);
-        this.data = data;
+        this.extra = extra;
     }
 }

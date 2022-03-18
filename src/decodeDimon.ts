@@ -3,11 +3,11 @@ import { DimonError } from './DimonError';
 
 export const decodeDimon = (
     inputString: string,
-    locale: DimonLocale.ru
+    locale = DimonLocale.ru
 ): number => {
     const { alphabet, prefix, postfix } = getLocaleSettings(locale);
 
-    const regex = new RegExp(`/^${prefix}([${alphabet}]*)${postfix}$/`);
+    const regex = new RegExp(`^${prefix}([${alphabet}]*)${postfix}$`, 'i');
 
     const matches = inputString.match(regex);
 
